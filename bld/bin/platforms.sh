@@ -66,7 +66,7 @@ win64)
     PLATFORM_ARCH='64'
     PLATFORM_NAME='windows'
 	# Use OpenSSL on Windows.
-    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"/cygdrive/c/Program\ Files/OpenSSL-Win64\""
+    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=/cygdrive/c/Program\ Files/OpenSSL-Win64\"
     #CMAKE_GENERATOR='Visual Studio 14 2015 Win64'
     CMAKE_GENERATOR='Visual Studio 16 2019'
     CMAKE_PATH='/cygdrive/c/cmake/bin'
