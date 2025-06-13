@@ -10,68 +10,75 @@ fail_on_error() {
     fi
 }
 
-set -o errexit
+(
+  set -o errexit
 
-icu_archive="$ICU_DIR/icu.tgz"
+  icu_archive="$ICU_DIR/icu.tgz"
 
-if [ ! -e "$ICU_SRC_DIR" ]; then
-    echo 'no icu source found,   need to download and extract'
+  if [ ! -e "$ICU_SRC_DIR" ]; then
+      echo 'no icu source found,   need to download and extract'
 
-    echo 'cleaning up existing icu build artifacts...'
-    rm -rf "$ICU_DIR"
-    mkdir "$ICU_DIR"
-    rm -rf "$ICU_BUILD_DIR"
-    mkdir "$ICU_BUILD_DIR"
-    echo 'done cleaning up existing icu build artifacts'
+      echo 'cleaning up existing icu build artifacts...'
+      rm -rf "$ICU_DIR"
+      mkdir "$ICU_DIR"
+      rm -rf "$ICU_BUILD_DIR"
+      mkdir "$ICU_BUILD_DIR"
+      echo 'done cleaning up existing icu build artifacts'
 
-    echo 'downloading icu...'
-    cd "$ICU_DIR"
-    #curl 'https://newcontinuum.dl.sourceforge.net/project/icu/ICU4C/62.1/icu4c-62_1-src.tgz' --output "$icu_archive"
-	curl -L 'https://github.com/unicode-org/icu/releases/download/release-62-2/icu4c-62_2-src.tgz' --output "$icu_archive"
+      echo 'downloading icu...'
+      cd "$ICU_DIR"
+      #curl 'https://newcontinuum.dl.sourceforge.net/project/icu/ICU4C/62.1/icu4c-62_1-src.tgz' --output "$icu_archive"
+    curl -L 'https://github.com/unicode-org/icu/releases/download/release-62-2/icu4c-62_2-src.tgz' --output "$icu_archive"
 
-    echo 'extracting icu...'
-    if [ "Windows_NT" = "$OS" ]; then
-            tar xzvf "$(cygpath -u $icu_archive)"
-    else
-            tar xzvf "$icu_archive"
-    fi
-    echo 'downloaded and extracted icu'
-else
-    echo 'existing icu source found, no need to download'
-    echo 'cleaning up existing icu build dir...'
-    rm -rf "$ICU_BUILD_DIR"
-    mkdir "$ICU_BUILD_DIR"
-    echo 'cleaned up existing icu build dir'
-fi
+      echo 'extracting icu...'
+      if [ "Windows_NT" = "$OS" ]; then
+              tar xzvf "$(cygpath -u $icu_archive)"
+      else
+              tar xzvf "$icu_archive"
+      fi
+      echo 'downloaded and extracted icu'
+  else
+      echo 'existing icu source found, no need to download'
+      echo 'cleaning up existing icu build dir...'
+      rm -rf "$ICU_BUILD_DIR"
+      mkdir "$ICU_BUILD_DIR"
+      echo 'cleaned up existing icu build dir'
+  fi
 
-echo "configuring icu for platform '$ICU_PLATFORM'"
-# We need to use a CPPFLAG since this autoconf script does not support the usual --with-pic.
-CONFIGURE="CPPFLAGS=-fPIC $ICU_SRC_DIR/runConfigureICU $ICU_PLATFORM --enable-static --disable-shared"
-# configure will run things that can fail so we don't want it to inherit this.
-set +o errexit
-case $VARIANT in
-windows-64)
-    #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
-    ls -lrt /cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Auxiliary/Build/
-    echo "Running C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
-    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
-    fail_on_error $? configure
-    #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat  amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
-    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
-    fail_on_error $? make
-    ;;
-windows-32)
-    # The cmd business brings all the needed compiler binaries into the shell's environment variables.
-    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat x86 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
-    fail_on_error $? configure
-    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat x86 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
-    fail_on_error $? make
-    ;;
-*)
-    cd "$ICU_BUILD_DIR" && eval $CONFIGURE
-    fail_on_error $? configure
-    cd "$ICU_BUILD_DIR" && make
-    fail_on_error $? make
-    ;;
-esac
-set -o errexit
+  echo "configuring icu for platform '$ICU_PLATFORM'"
+  # We need to use a CPPFLAG since this autoconf script does not support the usual --with-pic.
+  CONFIGURE="CPPFLAGS=-fPIC $ICU_SRC_DIR/runConfigureICU $ICU_PLATFORM --enable-static --disable-shared"
+  # configure will run things that can fail so we don't want it to inherit this.
+  set +o errexit
+  case $VARIANT in
+  windows-64)
+      #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+      ls -lrt /cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Auxiliary/Build/
+      echo "Running C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+      cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+      fail_on_error $? configure
+      #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat  amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
+      cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
+      fail_on_error $? make
+      ;;
+  windows-32)
+      # The cmd business brings all the needed compiler binaries into the shell's environment variables.
+      cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat x86 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+      fail_on_error $? configure
+      cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat x86 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
+      fail_on_error $? make
+      ;;
+  *)
+      cd "$ICU_BUILD_DIR" && eval $CONFIGURE
+      fail_on_error $? configure
+      cd "$ICU_BUILD_DIR" && make
+      fail_on_error $? make
+      ;;
+  esac
+
+  echo "Done building ICU"
+
+  set -o errexit
+) > $LOG_FILE 2>&1
+
+print_exit_msg
