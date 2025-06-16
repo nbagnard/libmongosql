@@ -31,6 +31,10 @@ PATH="$PATH:$DEVENV_PATH:$BISON_PATH:$CMAKE_PATH"
 
 # add boost to the cmake arguments
 CMAKE_ARGS="$CMAKE_ARGS -DWITH_BOOST=$BOOST_DIR"
+if [ -n "$SSL_DIR" ]; then
+  CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_DIR\""
+fi
+
 platform="$(uname)"
 if [ "Linux" = "$platform" ]; then
 	# add system SSL (OpenSSL) to any Linux distro's cmake args.

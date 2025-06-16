@@ -60,6 +60,7 @@ export CMAKE_ARGS="$CMAKE_ARGS $CMAKE_ICU_ARGS"
 rm -rf "$BUILD_DIR"
 mkdir -p "$BUILD_DIR"
 
+set -o errexit
 if [ "$PLATFORM" = macos ]; then
     cd "$BUILD_DIR"
     curl -O https://mongo-bic-odbc-driver-resources.s3.amazonaws.com/macos/openssl-1.0.2n.zip
@@ -74,8 +75,10 @@ $PROJECT_ROOT/bld/bin/build-icu.sh
 cd "$BUILD_DIR"
 if [ -n "$CMAKE_GENERATOR" ]; then
     # shellcheck disable=SC2086
+    echo "Running cmake \"$BUILD_SRC_DIR\" -G \"$CMAKE_GENERATOR\" $CMAKE_ARGS"
     cmake "$BUILD_SRC_DIR" -G "$CMAKE_GENERATOR" $CMAKE_ARGS
 else
+    echo "Running cmake \"$BUILD_SRC_DIR\" $CMAKE_ARGS"
     # shellcheck disable=SC2086
     cmake "$BUILD_SRC_DIR" $CMAKE_ARGS
 fi
@@ -102,3 +105,5 @@ fi
 cp -r "$PROJECT_ROOT"/include "$MYSQL_HOME_DIR"/
 cp -r "$BUILD_DIR"/include/* "$MYSQL_HOME_DIR"/include/
 cp "$PROJECT_ROOT"/libbinlogevents/export/binary_log_types.h "$MYSQL_HOME_DIR"/include/
+
+set -o errexit
