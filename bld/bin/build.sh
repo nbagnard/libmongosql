@@ -67,6 +67,8 @@ if [ "$PLATFORM" = macos ]; then
     unzip openssl-1.0.2n.zip
     SSL_DIR="$BUILD_DIR/1.0.2n"
     CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=$SSL_DIR -DCMAKE_VERBOSE_MAKEFILE=ON"
+elif [ "$PLATFORM" = win64 ]; then
+    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_DIR\" -DCMAKE_VERBOSE_MAKEFILE=ON"
 fi
 
 $PROJECT_ROOT/bld/bin/build-icu.sh
