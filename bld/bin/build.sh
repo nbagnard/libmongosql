@@ -68,11 +68,7 @@ if [ "$PLATFORM" = macos ]; then
     SSL_DIR="$BUILD_DIR/1.0.2n"
     CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=$SSL_DIR -DCMAKE_VERBOSE_MAKEFILE=ON"
 elif [ "$PLATFORM" = win64 ]; then
-    echo "SSL_DIR is \"$SSL_DIR\""
-    SSL_SHORT_DIR="/usr/local/openssl"
-    mkdir -p $SSL_SHORT_DIR
-    ln -s $SSL_DIR $SSL_SHORT_DIR
-    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_SHORT_DIR\" -DCMAKE_VERBOSE_MAKEFILE=ON"
+    CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_VERBOSE_MAKEFILE=ON"
 fi
 
 $PROJECT_ROOT/bld/bin/build-icu.sh
