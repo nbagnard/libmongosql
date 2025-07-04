@@ -67,15 +67,15 @@ if [ "$PLATFORM" = macos ]; then
     unzip openssl-1.0.2n.zip
     SSL_DIR="$BUILD_DIR/1.0.2n"
     CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=$SSL_DIR -DCMAKE_VERBOSE_MAKEFILE=ON"
-elif [ "$PLATFORM" = win64 ]; then
-    ls -lrt "$SSL_DIR"
-    echo "SSL_DIR is \"$SSL_DIR\""
-    SSL_SHORT_DIR="$ARTIFACTS_DIR/openssl_symlink"
-    ln -s "$SSL_DIR" $SSL_SHORT_DIR
-    ls -lrt $SSL_SHORT_DIR
-    ls -lrt "$SSL_SHORT_DIR/include"
-    ls -lrt "$SSL_SHORT_DIR/include/openssl"
-    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_SHORT_DIR\" -DCMAKE_VERBOSE_MAKEFILE=ON"
+#elif [ "$PLATFORM" = win64 ]; then
+#    ls -lrt "$SSL_DIR"
+#    echo "SSL_DIR is \"$SSL_DIR\""
+#    SSL_SHORT_DIR="$ARTIFACTS_DIR/openssl_symlink"
+#    ln -s "$SSL_DIR" $SSL_SHORT_DIR
+#    ls -lrt $SSL_SHORT_DIR
+#    ls -lrt "$SSL_SHORT_DIR/include"
+#    ls -lrt "$SSL_SHORT_DIR/include/openssl"
+#    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_SHORT_DIR\" -DCMAKE_VERBOSE_MAKEFILE=ON"
 fi
 
 $PROJECT_ROOT/bld/bin/build-icu.sh
