@@ -158,6 +158,7 @@ MACRO (MYSQL_CHECK_SSL)
   ENDIF()
 
   # See if WITH_SSL is of the form </path/to/custom/installation>
+  MESSAGE(STATUS "WITH_SSL is ${WITH_SSL}")
   FILE(GLOB WITH_SSL_HEADER ${WITH_SSL}/include/openssl/ssl.h)
   IF (WITH_SSL_HEADER)
     MESSAGE(STATUS "WITH_SSL_HEADER is true")
