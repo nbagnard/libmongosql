@@ -198,10 +198,10 @@ MACRO (MYSQL_CHECK_SSL)
             SET(OPENSSL_ROOT_DIR ${OPENSSL_WIN64})
             FIND_LIBRARY(OPENSSL_LIBRARY
               NAMES libssl_static
-              HINTS ${OPENSSL_ROOT_DIR}/lib)
+              HINTS ${OPENSSL_ROOT_DIR}/lib/VC/x64/MT/lib)
             FIND_LIBRARY(CRYPTO_LIBRARY
               NAMES libcrypto_static
-              HINTS ${OPENSSL_ROOT_DIR}/lib)
+              HINTS ${OPENSSL_ROOT_DIR}/lib/VC/x64/MT/lib)
             IF(OPENSSL_LIBRARY AND CRYPTO_LIBRARY)
               SET(FOUND_STATIC_SSL_LIBS 1)
             ENDIF()
