@@ -76,7 +76,7 @@ set -o errexit
 #    ls -lrt "$SSL_SHORT_DIR/include"
 #    ls -lrt "$SSL_SHORT_DIR/include/openssl"
 #    CMAKE_ARGS="$CMAKE_ARGS -DWITH_SSL=\"$SSL_SHORT_DIR\" -DCMAKE_VERBOSE_MAKEFILE=ON"
-fi
+#fi
 
 CMAKE_ARGS="$CMAKE_ARGS -DCMAKE_VERBOSE_MAKEFILE=ON
 
