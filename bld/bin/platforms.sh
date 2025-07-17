@@ -57,6 +57,7 @@ macos)
     CMAKE_PATH='/Applications/Cmake.app/Contents/bin'
     ICU_PLATFORM='MacOSX'
     VARIANT='macos'
+    OPENSSL_PATH='/usr/local/opt/openssl'
     ;;
 win32)
     PLATFORM_ARCH='32'
