@@ -39,8 +39,8 @@
 #     We look for "C:/Program Files/OpenSSL-Win64/"
 # or
 #     https://brew.sh
-#     https://formulae.brew.sh/formula/openssl@1.1
-#     We look for "${HOMEBREW_HOME}/openssl@1.1"
+#     https://formulae.brew.sh/formula/openssl
+#     We look for "${HOMEBREW_HOME}/openssl"
 #     We look for the static libraries, rather than the .dylib ones.
 # When the package has been located, we treat it as if cmake had been
 # invoked with  -DWITH_SSL=</path/to/custom/openssl>
@@ -178,7 +178,7 @@ MACRO (MYSQL_CHECK_SSL)
     # have buggy implementations.
     IF((APPLE OR WIN32) AND NOT WITH_SSL_PATH AND WITH_SSL STREQUAL "system")
       IF(APPLE)
-        SET(WITH_SSL_PATH "${HOMEBREW_HOME}/openssl@1.1")
+        SET(WITH_SSL_PATH "${HOMEBREW_HOME}/openssl")
       ELSE()
         SET(WITH_SSL_PATH "C:/Program Files/OpenSSL-Win64/")
       ENDIF()
