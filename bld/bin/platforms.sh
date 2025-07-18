@@ -59,6 +59,15 @@ macos)
     VARIANT='macos'
     OPENSSL_PATH='/usr/local/opt/openssl@3'
     ;;
+macos-11-arm64)
+    PLATFORM_ARCH='arm64'
+    PLATFORM_NAME='darwin'
+    CMAKE_GENERATOR='Unix Makefiles'
+    CMAKE_PATH='/Applications/Cmake.app/Contents/bin'
+    ICU_PLATFORM='MacOSX'
+    VARIANT='macos'
+    OPENSSL_PATH='/opt/homebrew/opt/openssl@3'
+    ;;
 win32)
     PLATFORM_ARCH='32'
     PLATFORM_NAME='windows'
@@ -87,7 +96,7 @@ win64)
     ;;
 *)
     echo "ERROR: invalid value for \$PLATFORM: '$PLATFORM'"
-    echo "Allowed values: 'win64', 'win32', 'macos', 'rhel70', 'rhel80', 'rhel93', 'ubuntu1404-64', 'ubuntu1604-64'"
+    echo "Allowed values: 'win64', 'win32', 'macos', 'rhel70', 'rhel80', 'rhel93', 'ubuntu1404-64', 'ubuntu1604-64', 'macos-11-arm64'"
     exit 1
     ;;
 esac
