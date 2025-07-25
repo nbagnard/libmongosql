@@ -42,6 +42,22 @@ ubuntu2204-64)
     ICU_PLATFORM='Linux'
     VARIANT='ubuntu2204-64'
     ;;
+ubuntu2004-arm64)
+    PLATFORM_ARCH='arm64'
+    PLATFORM_NAME='linux'
+    CMAKE_GENERATOR='Unix Makefiles'
+    CMAKE_PATH='/opt/cmake/bin'
+    ICU_PLATFORM='Linux'
+    VARIANT='ubuntu2004-arm64'
+    ;;
+ubuntu2204-arm64)
+    PLATFORM_ARCH='arm64'
+    PLATFORM_NAME='linux'
+    CMAKE_GENERATOR='Unix Makefiles'
+    CMAKE_PATH='/opt/cmake/bin'
+    ICU_PLATFORM='Linux'
+    VARIANT='ubuntu2204-arm64'
+    ;;
 rhel70)
     PLATFORM_ARCH='64'
     PLATFORM_NAME='linux'
@@ -111,8 +127,7 @@ win64)
     VARIANT='windows-64'
     ;;
 *)
-    echo "ERROR: invalid value for \$PLATFORM: '$PLATFORM'"
-    echo "Allowed values: 'win64', 'win32', 'macos', 'rhel70', 'rhel80', 'rhel93', 'ubuntu1404-64', 'ubuntu1604-64','ubuntu2004-64','ubuntu2204-64', 'macos-arm64'"
+    echo "ERROR: invalid value for \$PLATFORM: '$PLATFORM' for libmongosql"
     exit 1
     ;;
 esac
