@@ -1,4 +1,4 @@
 [submodule "bld/mongosql-auth-c"]
 	path = bld/mongosql-auth-c
-	url = https://github.com/nbagnard/mongosql-auth-c
-	branch = platformUpdate
+	url = https://github.com/mongodb/mongosql-auth-c
+
