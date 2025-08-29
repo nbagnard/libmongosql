@@ -51,11 +51,13 @@ CONFIGURE="CPPFLAGS=-fPIC $ICU_SRC_DIR/runConfigureICU $ICU_PLATFORM --enable-st
 set +o errexit
 case $VARIANT in
 windows-64)
-    ls -lrt $VS_INSTALL_PATH/VC/Auxiliary/Build/
-    echo "Running $VS_INSTALL_PATH\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
-    cmd /c "$VS_INSTALL_PATH\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+    #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+    ls -lrt /cygdrive/c/Program\ Files\ \(x86\)/Microsoft\ Visual\ Studio/2019/Professional/VC/Auxiliary/Build/
+    echo "Running C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
+    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& eval $CONFIGURE'"
     fail_on_error $? configure
-    cmd /c "$VS_INSTALL_PATH\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
+    #cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio^ 14.0\VC\vcvarsall.bat  amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
+    cmd /c "C:\Program^ Files^ ^(x86^)\Microsoft^ Visual^ Studio\2019\Professional\VC\Auxiliary\Build\vcvarsall.bat amd64 && bash -c 'cd $ICU_BUILD_DIR ^&^& make'"
     fail_on_error $? make
     ;;
 windows-32)
